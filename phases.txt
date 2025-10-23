@@ -1,0 +1,188 @@
+🎯 1. Genel Hedef
+
+Spor salonu üyelerinin verilerini analiz edip:
+
+Benzer egzersiz alışkanlıklarına göre gruplandırmak (clustering),
+
+Ve gelecekte yapacakları egzersiz türünü tahmin etmek (classification).
+
+Yani:
+👉 İlk aşama denetimsiz öğrenme (KMeans, DBSCAN)
+👉 İkinci aşama denetimli öğrenme (Decision Tree, Random Forest, SVM)
+
+🧠 2. Kullanılacak Programlama Dili
+
+Sadece Python yeterli kardeşim.
+Her şey Python ile hallediliyor.
+
+Yani:
+
+Veri temizleme ✅
+
+Görselleştirme ✅
+
+Makine öğrenmesi modelleri ✅
+
+Raporlama (grafikler vs.) ✅
+
+💻 3. Kullanılacak Ortamlar
+
+İki seçenek var (ikisini de bilmek iyi olur):
+
+Google Colab
+
+Tarayıcıda çalışıyor
+
+GPU (donanım desteği) veriyor
+
+Paylaşımı kolay
+
+Kod + grafikler aynı dosyada
+
+Jupyter Notebook (Anaconda veya VS Code içinde)
+
+Bilgisayara kuruyorsun
+
+İnternet gerekmez
+
+Veri ve görselleştirme birlikte yapılabiliyor
+
+Ben sana öneririm: Google Colab ile başlayın, çünkü grupta herkes aynı notebook’a erişebilir ve GPU kullanmak kolay olur.//zorunlu değil vscode + github ile yaparız
+
+📦 4. Gerekli Python Kütüphaneleri
+🔹 Veri İşleme
+import pandas as pd     # Veri okuma, tablo işlemleri
+import numpy as np      # Matematiksel işlemler
+
+🔹 Görselleştirme
+import matplotlib.pyplot as plt  # Temel grafikler
+import seaborn as sns            # Korelasyon ve ısı haritaları
+import plotly.express as px      # Etkileşimli grafikler (isteğe bağlı)
+
+🔹 Makine Öğrenmesi (scikit-learn)
+from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
+from sklearn.cluster import KMeans, DBSCAN
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score, precision_score, f1_score, classification_report
+
+🧩 5. Proje Aşamaları (Yapılacaklar)
+🧹 Aşama 1 – Veri Ön İşleme (Onur)
+
+Yapılacaklar:
+
+Kaggle’dan veri setini indir (gym-members-exercise-dataset)
+
+pandas ile oku:
+
+df = pd.read_csv("gym_members_exercise_dataset.csv")
+
+
+Eksik verileri kontrol et:
+
+df.isnull().sum()
+
+
+Aykırı değerleri incele (boxplot, describe())
+
+Kategorik verileri sayısala çevir (örnek: Gender, Workout_Type)
+
+Veriyi normalize et (StandardScaler kullan)
+
+📊 Aşama 2 – Keşifsel Veri Analizi (EDA) (Mehmet)
+
+Yapılacaklar:
+
+Değişken dağılımları (histogram, bar chart)
+
+Korelasyon analizi (sns.heatmap(df.corr()))
+
+Cinsiyet-yaş-egzersiz ilişkileri
+
+Özelliklerin hedef değişkenle ilişkisi
+
+⚙️ Aşama 3 – Özellik Mühendisliği (Feature Engineering)
+
+Yeni sütunlar ekleyebilirsiniz:
+
+Calories_per_Hour = Calories_Burned / Session_Duration
+
+BPM_Difference = Max_BPM - Resting_BPM
+
+Bu, modellerin performansını artırır.
+
+🌀 Aşama 4 – Clustering (Mehmet)
+
+Denetimsiz öğrenme kısmı:
+
+KMeans ile kümeleme yapın:
+
+kmeans = KMeans(n_clusters=3, random_state=42)
+clusters = kmeans.fit_predict(X_scaled)
+
+
+DBSCAN ile deneyin:
+
+dbscan = DBSCAN(eps=0.5, min_samples=5)
+labels = dbscan.fit_predict(X_scaled)
+
+
+Küme sonuçlarını sns.scatterplot veya plotly ile görselleştirin.
+
+🤖 Aşama 5 – Sınıflandırma (Classification) (Tüm grup)
+
+Amaç: Workout_Type tahmini yapmak.
+
+Modeller:
+
+Decision Tree
+
+Random Forest
+
+SVM
+
+Yapılacaklar:
+
+X = df.drop('Workout_Type', axis=1)
+y = df['Workout_Type']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+models = {
+    "Decision Tree": DecisionTreeClassifier(),
+    "Random Forest": RandomForestClassifier(),
+    "SVM": SVC()
+}
+
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    print(f"{name} Accuracy:", accuracy_score(y_test, y_pred))
+
+📈 Aşama 6 – Model Değerlendirme (Elif)
+
+Accuracy, Precision, F1-score kıyasla
+
+En başarılı modeli seç
+
+Feature Importance analiz et (RandomForestClassifier.feature_importances_)
+
+🧮 Aşama 7 – Sonuçların Analizi (Onur & Elif)
+
+Segmentler arasında farkları yorumla
+
+Örneğin:
+
+“Genç kullanıcılar kısa süreli ama yüksek BPM’li egzersizleri tercih ediyor.”
+
+Sonuçları grafiklerle destekle
+
+📑 Aşama 8 – Rapor ve Sunum (Tüm grup)
+
+Son olarak:
+
+Notebook’taki grafik ve sonuçları kullanarak rapor yaz
+
+Slaytta: “veri seti”, “kullanılan modeller”, “başarı oranları”, “sonuçlar” kısmı olsun
