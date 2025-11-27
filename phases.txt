@@ -12,7 +12,6 @@ Yani:
 
 🧠 2. Kullanılacak Programlama Dili
 
-Sadece Python yeterli kardeşim.
 Her şey Python ile hallediliyor.
 
 Yani:
